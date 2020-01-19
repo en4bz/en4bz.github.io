@@ -5,16 +5,20 @@
  2. Install `sudo apt-get install perftest infiniband-diags`. This installs IB test and perf tools.
  
  3. Append the following to `/etc/modules` to load the RDMA modules on boot.
+ 
  ```
  rdma_rxe
  rdma_cm
  rdma_ucm
  ```
+ 
  4. Edit `/etc/security/limits.conf` to enable locking larger amounts of memory.
+ 
  ```
  * soft memlock unlimited
  * hard memlock unlimited
  ```
+ 
  5. `reboot`
  
  6. Use `ifconfig` to determine the name of your network adapter. On this machine it's `ens5`.
@@ -34,6 +38,7 @@ ens5: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 9001
  7. As root run `echo X > /sys/modules/rdma_rxe/parameters/add` where X is the network adapter name found in step 6.
  
  8. Run `ibstat` to ensure the adapater is configured properly. State should be `Active`.
+ 
  ```
 ubuntu@ip-172-30-0-253:~$ ibstat
 CA 'rxe0'
